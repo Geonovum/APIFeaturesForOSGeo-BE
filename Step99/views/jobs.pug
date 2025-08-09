@@ -1,0 +1,66 @@
+extends layout.pug
+
+block header
+
+  svg.d-none(xmlns='http://www.w3.org/2000/svg')
+    symbol#house-door-fill(viewbox='0 0 16 16')
+      path(d='M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5z')
+
+  - let linkSelf = content.links.find(i => i.rel == 'self').href.split('?')[0]
+
+  nav.navbar.navbar-light.bg-light.navbar-expand-sm
+    .container
+      #navbar.navbar-collapse.collapse.d-flex.justify-content-between.align-items-center
+        ol.breadcrumb.breadcrumb-chevron.p-3.bg-light
+          li.breadcrumb-item
+            a.link-body-emphasis(href=serviceUrl)
+              svg.bi(width='16' height='16')
+                use(xlink:href='#house-door-fill')
+              span.visually-hidden serviceUrl
+          li.breadcrumb-item.active(aria-current='page')
+            | Jobs
+        ul.list-separated.m-0.p-0
+          a(href=linkSelf + '?f=json') JSON
+
+block content
+
+  .container
+    .row
+      .col-sm-12
+        br
+        section#jobs
+          .row
+            .col-md-12
+              table.job-list.table.table-striped.table-bordered
+                thead
+                  tr
+                    th Job ID
+                    th Process ID
+                    th Start
+                    th Duration
+                    th Progress
+                    th Status
+                    th Message
+                tbody
+                  each job in content.jobs
+                    - const date1 = new Date(job.started);
+                    - const date2 = new Date(job.finished);
+                    - const diffTime = Math.abs(date2 - date1);
+                    - var resultsLink = job.links.find(i => i.rel == 'http://www.opengis.net/def/rel/ogc/1.0/results' && i.type == 'application/json').href
+                    - var jobUrl = resultsLink.substring(0, resultsLink.indexOf("/jobs") + "/jobs".length) + "/" + job.jobID
+                    - var processUrl = resultsLink.substring(0, resultsLink.indexOf("/jobs")) + "/processes" + "/" + job.processID
+                      tr
+                        td.small
+                          a(href=jobUrl) #{job.jobID}
+                        td.small
+                          a(href=processUrl) #{job.processID}
+                        td
+                          abbr(title=job.started) #{job.started}
+                        td
+                          | #{diffTime}ms
+                        td
+                          progress.inline(value=job.progress max='100')
+                        td
+                          mark.successful #{job.status}
+                        td
+                          | #{job.message}

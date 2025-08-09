@@ -1,0 +1,26 @@
+---
+id: amstelveen
+title: Geospatial data from Amstelveen in the Netherlands
+description: Amstelveen is a town and municipality in the Dutch province of North Holland. The built-up area borders the city of Amsterdam to the north and is located near Schiphol Airport. The municipality has 95,007 inhabitants and a total area of 44.08 km², of which 41.13 km² is land and 2.95 km² is water.
+metadata:
+  contactName: Jane Doe
+  contactEmail: doe@amstelveen.nl
+  creatorName: Gemeente Amstelveen
+  creatorUrl: https://data.amstelveen.nl/
+  publisherName: Acme Inc.
+  publisherUrl: https://www.example.com/
+  licenseName: CC0 1.0
+  licenseUrl: http://creativecommons.org/publicdomain/zero/1.0/deed.nl
+  attribution: 'Data from Amstelveen'
+api:
+- buildingBlock: CRS
+  enabled: true
+  additionalCrs:
+  - code: 25832
+    forceAxisOrder: NONE
+  - code: 4258
+    forceAxisOrder: NONE
+  - code: 4326
+    forceAxisOrder: NONE
+  - code: 3857
+    forceAxisOrder: NONE

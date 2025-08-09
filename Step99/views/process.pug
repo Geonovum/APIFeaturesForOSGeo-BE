@@ -1,0 +1,94 @@
+extends layout.pug
+
+block header
+
+  svg.d-none(xmlns='http://www.w3.org/2000/svg')
+    symbol#house-door-fill(viewbox='0 0 16 16')
+      path(d='M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5z')
+
+  - let linkSelf = content.links.find(i => i.rel == 'self').href.split('?')[0]
+  - let links = [ linkSelf ]
+  - while (links[0] != serviceUrl) {
+  -   links.unshift(links[0].substr(0, links[0].lastIndexOf("/"))) }
+
+  nav.navbar.navbar-light.bg-light.navbar-expand-sm
+    .container
+      #navbar.navbar-collapse.collapse.d-flex.justify-content-between.align-items-center
+        ol.breadcrumb.breadcrumb-chevron.p-3.bg-light
+          li.breadcrumb-item
+            a.link-body-emphasis(href=serviceUrl)
+              svg.bi(width='16' height='16')
+                use(xlink:href='#house-door-fill')
+              span.visually-hidden serviceUrl
+          li.breadcrumb-item
+            a.link-body-emphasis.fw-semibold.text-decoration-none(href=links[1]) Processes
+          - let pathElement = linkSelf.substring(linkSelf.lastIndexOf("/") + 1);
+          li.breadcrumb-item.active(aria-current='page')
+            | #{pathElement}
+        ul.list-separated.m-0.p-0
+          a(href=linkSelf + '?f=json') JSON
+
+block content
+
+  .container
+    .row
+      .col-sm-12
+        br
+        section#process(itemscope='' itemtype='https://schema.org/WebAPI')
+          h2.text-body-emphasis(itemprop='name') #{content.title}
+          div(itemprop='description') #{content.description}
+          .row
+            p
+            h3.text-body-emphasis Inputs
+            .col-sm-12.col-md-12
+              table.table.table-striped.table-bordered
+                thead
+                  tr
+                    th Id
+                    th Title
+                    th Data Type
+                    th Format
+                    th Description
+                tbody
+                  each input, key in content.inputs
+                    tr(itemprop='parameter' itemscope='')
+                      td(itemprop='id' data-label='ID') #{key}
+                      td(itemprop='name' data-label='Title') #{input.title}
+                      td(itemprop='type' data-label='Data Type') #{input.schema.type}
+                      td(itemprop='type' data-label='Data Type') #{input.schema.format}
+                      td(itemprop='description' data-label='Description') #{input.description}
+            p
+            h3 Outputs
+            .col-sm-12.col-md-12
+              table.table.table-striped.table-bordered
+                thead
+                  tr
+                    th Id
+                    th Title
+                    th Data Type
+                    th Description
+                tbody
+                  each output, key in content.outputs
+                    tr(itemprop='parameter' itemscope='')
+                      td(itemprop='id' data-label='ID') #{key}
+                      td(itemprop='name' data-label='Title') #{output.title}
+                      td(itemprop='type' data-label='Data Type') #{output.schema.type}
+                      td(itemprop='description' data-label='Description')
+                        | #{output.description}
+              p
+              h2 Execution modes
+              ul
+                each jobControlOption in content.jobControlOptions
+                  li=jobControlOption
+
+              p
+              h2 Jobs
+              - var linkJobs = content.links.find(i => i.rel == 'http://www.opengis.net/def/rel/ogc/1.0/job-list').href
+              a(href=linkJobs) Browse jobs
+              - var linkExecute = content.links.find(i => i.rel == 'http://www.opengis.net/def/rel/ogc/1.0/execute').href
+              p
+              h2 Links
+              ul
+                li
+                  a(href=linkExecute)
+                    | Execution for this process as JSON (application/json)

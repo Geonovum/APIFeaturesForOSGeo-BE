@@ -1,0 +1,92 @@
+extends layout.pug
+
+block append scripts
+  link(rel='stylesheet' href='https://unpkg.com/leaflet@1.6.0/dist/leaflet.css')
+  script(src='https://unpkg.com/leaflet@1.6.0/dist/leaflet.js')
+
+block header
+  svg.d-none(xmlns='http://www.w3.org/2000/svg')
+    symbol#house-door-fill(viewbox='0 0 16 16')
+      path(d='M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5z')
+
+  nav.navbar.navbar-light.bg-light.navbar-expand-sm
+    .container
+      #navbar.navbar-collapse.collapse.d-flex.justify-content-between.align-items-center
+        ol.breadcrumb.breadcrumb-chevron.p-3.bg-light
+          li.breadcrumb-item.active
+            a.link-body-emphasis(href=serviceUrl)
+              svg.bi(width='16' height='16')
+                use(xlink:href='#house-door-fill')
+              span.visually-hidden serviceUrl
+        ul.list-separated.m-0.p-0
+          a(href=serviceUrl + '?f=json') JSON
+
+block content
+  svg.d-none(xmlns='http://www.w3.org/2000/svg')
+    symbol#arrow-right-circle(viewbox='0 0 16 16')
+      path(d='M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z')
+
+  .col-lg-8.mx-auto.p-2.py-md-2
+    main
+      .px-8.py-1.my-1.text-center
+        h1.display-6.fw-bold.text-body-emphasis #{content.title}
+        .col-lg-6.mx-auto
+          p.lead.mb-4
+            | #{content.description}
+          .d-grid.gap-2.d-sm-flex.justify-content-sm-center
+            a.btn.btn-primary(href='https://github.com/Geonovum/ogc-api-kennissessie' role='button') Code on GitHub
+
+      .row.g-5.py-4
+        .col-md-6
+          h2.text-body-emphasis Links to the main resources
+          ul.list-unstyled.ps-0
+            li
+              - var linkCollections = content.links.find(i => i.rel == 'http://www.opengis.net/def/rel/ogc/1.0/data').href
+              a.icon-link.mb-1(href=linkCollections rel='noopener' target='_blank')
+                svg.bi(width='16' height='16')
+                  use(xlink:href='#arrow-right-circle')
+                |               Collections
+            li
+              - var linkProcesses = content.links.find(i => i.rel == 'http://www.opengis.net/def/rel/ogc/1.0/processes').href
+              a.icon-link.mb-1(href=linkProcesses rel='noopener' target='_blank')
+                svg.bi(width='16' height='16')
+                  use(xlink:href='#arrow-right-circle')
+                |               Processes
+            li
+              - var linkJobs = content.links.find(i => i.rel == 'http://www.opengis.net/def/rel/ogc/1.0/job-list').href
+              a.icon-link.mb-1(href=linkJobs rel='noopener' target='_blank')
+                svg.bi(width='16' height='16')
+                  use(xlink:href='#arrow-right-circle')
+                |               Jobs
+        .col-md-6
+          h2.text-body-emphasis API information
+          ul.list-unstyled.ps-0
+            li
+              - var linkAPIjson = content.links.find(i => i.rel == 'service-desc' || i.type == 'application/vnd.oai.openapi+json;version=3.0').href
+              a.icon-link.mb-1(href=linkAPIjson)
+                svg.bi(width='16' height='16')
+                  use(xlink:href='#arrow-right-circle')
+                |               API Definition
+            li
+              - var linkAPIjson = content.links.find(i => i.rel == 'service-desc' || i.type == 'application/vnd.oai.openapi+json;version=3.0').href
+              a.icon-link.mb-1(href=linkAPIjson)
+                svg.bi(width='16' height='16')
+                  use(xlink:href='#arrow-right-circle')
+                |               OpenAPI Document
+            li
+              - var linkConformance = content.links.find(i => i.rel == 'http://www.opengis.net/def/rel/ogc/1.0/conformance').href
+              a.icon-link.mb-1(href=linkConformance)
+                svg.bi(width='16' height='16')
+                  use(xlink:href='#arrow-right-circle')
+                |                Conformance
+
+    h2.text-body-emphasis Spatial Extent
+    #map(style='width: 100%; height: 400px; position: relative;')
+    script.
+      const map = L.map("map").setView([52.300, 4.867], 11);
+      L.tileLayer('http://tile.openstreetmap.org/{z}/{x}/{y}.png', {attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'}).addTo(map);
+        
+      const coords = !{JSON.stringify(content.extent.spatial.bbox)}
+      const bounds = [[coords[1], coords[0]], [coords[3], coords[2]]];
+      L.rectangle(bounds, {color: "#ff7800", weight: 1}).addTo(map)
+

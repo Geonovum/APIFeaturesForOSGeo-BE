@@ -1,10 +1,10 @@
 ---
-id: NAP_Peilmerken
-title: Peilmerken
+id: NAP_Benchmarks
+title: Benchmarks
 description: The Amsterdam Ordnance Datum (abbreviated to NAP) is the reference elevation or level to which elevation measurements in the Netherlands are based. The NAP network consists of approximately 35,000 visible benchmarks, usually bronze bolts with the "NAP" inscription, installed in quays, walls, buildings, or on poles, as well as 400 underground benchmarks. The height differences between the benchmarks are accurately recorded.
 keywords: 
   - Ruimte en infrastructuur
-  - Peilmerken
+  - Benchmarks
   - NAP
 crs:
   - "http://www.opengis.net/def/crs/EPSG/0/28992"

@@ -1,0 +1,116 @@
+extends layout.pug
+
+block append scripts
+  link(rel='stylesheet' href='https://unpkg.com/leaflet@1.6.0/dist/leaflet.css')
+  script(src='https://unpkg.com/leaflet@1.6.0/dist/leaflet.js')
+
+block header
+
+  svg.d-none(xmlns='http://www.w3.org/2000/svg')
+    symbol#house-door-fill(viewbox='0 0 16 16')
+      path(d='M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5z')
+
+  - let linkSelf = content.links.find(i => i.rel == 'self').href.split('?')[0]
+  - let links = [ linkSelf ]
+  - while (links[0] != serviceUrl) {
+  -  links.unshift(links[0].substr(0, links[0].lastIndexOf("/"))) }
+
+  nav.navbar.navbar-light.bg-light.navbar-expand-sm
+    .container
+      #navbar.navbar-collapse.collapse.d-flex.justify-content-between.align-items-center
+        ol.breadcrumb.breadcrumb-chevron.p-3.bg-light
+          li.breadcrumb-item
+            a.link-body-emphasis(href=serviceUrl)
+              svg.bi(width='16' height='16')
+                use(xlink:href='#house-door-fill')
+              span.visually-hidden serviceUrl
+          li.breadcrumb-item
+            a.link-body-emphasis.fw-semibold.text-decoration-none(href=links[1]) Data
+          - let pathElement = links[2].substring(links[2].lastIndexOf("/") + 1);
+          li.breadcrumb-item
+            a.link-body-emphasis.fw-semibold.text-decoration-none(href=links[2]) #{pathElement}
+          li.breadcrumb-item.active(aria-current='page')
+            | Items
+        ul.list-separated.m-0.p-0
+          a(href=linkSelf + '?f=json') JSON
+
+block content
+
+  .container.py-4
+    .row
+      .col-sm-12
+        br
+        section#collection
+          .row
+            .col-sm
+              h1 sdf
+              p
+                | dfg
+                
+        if (content.numberMatched > content.numberReturned)
+          - let nextLink = content.links.find(i => i.rel == 'next').href
+          - var offset = 0
+          - var limit = 10
+          - var pageCount = content.numberMatched / limit;
+          - var pageActive = Math.trunc(offset / limit); 
+          - var pageFirst = pageActive - 2; 
+          - if (pageFirst < 0) pageFirst = 0;
+          - var pageLast  = pageFirst + 5; 
+
+          p #{nextLink}
+          p #{pageCount}
+          p #{pageActive}
+          p #{pageFirst}
+          p #{pageLast}
+
+          nav(aria-label='...')
+            ul.pagination
+
+              if pageActive == 0
+                li.page-item.disable
+                  a.page-link(href='#') «
+              else
+                li.page-item
+                  a.page-link(href='#') «
+
+              li.page-item
+                a.page-link(href='#') ‹
+
+              - var p = pageFirst;
+              while p < pageLast
+                - p++
+                li.page-item
+                  a.page-link(href='#') #{p}
+
+
+              li.page-item
+                a.page-link(href='#') ›
+              li.page-item
+                a.page-link(href='#') »
+
+
+    .row
+      .col-md-6
+        ul.list-unstyled
+          - var n = 0;
+          while n < content.numberReturned
+            - var feature = content.features[n]
+            li
+              - n++
+              div
+                h4.mt-3.mb-1
+                  a(href=linkSelf + '/' + n)
+                    span #{feature.properties.fid}
+                span.d-none linkSelf + '/' + n
+                .row.my-1
+                  .col-md-6.font-weight-bold.text-truncate(data-property='id')
+                    span(style='vertical-align: middle;') #{feature.type}
+                  .col-md-6
+                    ul.list-unstyled
+                      li #{n}  
+
+      .col-md-6
+        #map(style='width: 540px; height: 480px; position: relative;')
+        script.
+          const map = L.map("map").setView([52.300, 4.867], 11);
+          L.tileLayer('http://tile.openstreetmap.org/{z}/{x}/{y}.png', {attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'}).addTo(map);

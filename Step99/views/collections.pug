@@ -1,0 +1,54 @@
+extends layout.pug
+
+block append scripts
+  link(rel='stylesheet' href='https://unpkg.com/leaflet@1.6.0/dist/leaflet.css')
+  script(src='https://unpkg.com/leaflet@1.6.0/dist/leaflet.js')
+
+block header
+
+  svg.d-none(xmlns='http://www.w3.org/2000/svg')
+    symbol#house-door-fill(viewbox='0 0 16 16')
+      path(d='M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5z')
+
+  - let linkSelf = content.links.find(i => i.rel == 'self').href.split('?')[0]
+
+  nav.navbar.navbar-light.bg-light.navbar-expand-sm
+    .container
+      #navbar.navbar-collapse.collapse.d-flex.justify-content-between.align-items-center
+        ol.breadcrumb.breadcrumb-chevron.p-3.bg-light
+          li.breadcrumb-item
+            a.link-body-emphasis(href=serviceUrl)
+              svg.bi(width='16' height='16')
+                use(xlink:href='#house-door-fill')
+              span.visually-hidden serviceUrl
+          li.breadcrumb-item.active(aria-current='page')
+            | Data
+        ul.list-separated.m-0.p-0
+          a(href=linkSelf + '?f=json') JSON
+
+block content
+
+  .container
+    .row
+      .col-sm-12
+        br
+        section#data-collections
+          h2.text-body-emphasis Data collections in this service
+          table.table.table-striped.table-bordered
+            thead
+              tr
+                th Name
+                th Description
+            tbody
+            each collection in content.collections
+              - var linkCollection = collection.links.find(l => l.rel == 'self').href
+              tr
+                td(data-label='name')
+                  a(href=linkCollection) #{collection.title}
+                td(data-label='description') #{collection.description}
+
+    h2.text-body-emphasis Spatial Extent
+    #map(style='width: 100%; height: 400px; position: relative;')
+    script.
+      const map = L.map("map").setView([52.300, 4.867], 11);
+      L.tileLayer('http://tile.openstreetmap.org/{z}/{x}/{y}.png', {attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'}).addTo(map);
