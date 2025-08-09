@@ -1,0 +1,73 @@
+---
+id: NAP_Peilmerken
+title: Peilmerken
+description: The Amsterdam Ordnance Datum (abbreviated to NAP) is the reference elevation or level to which elevation measurements in the Netherlands are based. The NAP network consists of approximately 35,000 visible benchmarks, usually bronze bolts with the "NAP" inscription, installed in quays, walls, buildings, or on poles, as well as 400 underground benchmarks. The height differences between the benchmarks are accurately recorded.
+keywords: 
+  - Ruimte en infrastructuur
+  - Peilmerken
+  - NAP
+crs:
+  - "http://www.opengis.net/def/crs/EPSG/0/28992"
+schema:
+  type: Object
+  geometry:
+    sourcePath: geojson
+    type: GEOMETRY
+    role: PRIMARY_GEOMETRY
+    geometryType: POINT
+  properties:
+    fid:
+      name: fid
+      type: number
+      role: ID
+      label: Feature id
+    boutnr:
+      type: string
+    nap_in_m:
+      type: number
+      format: float
+    gvl:
+      type: string
+    muurcoord_x:
+      type: number
+      format: float
+    muurcoord_y:
+      type: number
+      format: float
+    ligging:
+      type: string
+    omschrijving:
+      type: string
+    eigenaar:
+      type: string
+      values:
+        - "Amstelveen"
+        - "Rijkswaterstaat"
+    status:
+      type: string
+      values:
+        - "Aanwezig"
+    x_coord:
+      type: string
+      description: "x-coord in RD-New"
+      format: float
+    y_coord:
+      type: string
+      description: "y-coord in RD-New"
+      format: float
+    id_kv:
+      type: number
+queryables:
+  spatial:
+    - geometry
+  temporal:
+  q:
+    - boutnr
+    - nap_in_m
+    - gvl
+    - ligging
+    - omschrijving
+    - eigenaar
+    - status
+    - id_kv
+  other:

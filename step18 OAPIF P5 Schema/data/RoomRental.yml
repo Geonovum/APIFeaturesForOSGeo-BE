@@ -1,0 +1,65 @@
+---
+id: Kamergewijze verhuur
+title: Room-by-room rental
+description: Permits issued for room-by-room rentals in the municipality of Amstelveen. The dataset is for the website, so the filtering is not working. This is due to the modified presentation.
+keywords: 
+  - Wonen
+  - Kamergewijzerverhuur
+  - Amstelveen
+  - Airbnb
+  - verhuren
+  - Cultuur en recreatie
+crs:
+  - "http://www.opengis.net/def/crs/EPSG/0/28992"
+schema:
+  type: Object
+  properties:
+    fid:
+      name: fid
+      type: number
+      role: ID
+      label: Feature id
+    volgnummer:
+      type: number
+    zaaknummer:
+      type: string
+    globale_locatie:
+      type: string
+    bagid_vbo:
+      type: string
+    type_woning:
+      type: string
+    status_aanvraag:
+      type: string
+    aantal_complex:
+      type: number
+    maximaal_complex:
+      type: number
+    buurtnaam:
+      type: string
+    wijknaam:
+      type: string
+    id_kv:
+      type: number
+    dr_kv:
+      type: string
+      format: date-time
+queryables:
+  spatial:
+    - geometry
+  temporal:
+  q:
+    - fid
+    - volgnummer
+    - zaaknummer
+    - globale_locatie
+    - bagid_vbo
+    - type_woning
+    - status_aanvraag
+    - aantal_complex
+    - maximaal_complex
+    - buurtnaam
+    - wijknaam
+    - id_kv
+    - dr_kv
+  other:

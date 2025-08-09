@@ -1,0 +1,73 @@
+---
+id: Energylabels
+title: Energylabels
+description: Amstelveen's energy labels. As of January 1, 2015, every home has an energy label. This label indicates how energy-efficient a home is and helps residents and the government make their homes even more energy-efficient. When a home is sold or rented, a definitive energy label is mandatory in Amstelveen. This must be determined by a certified third party. The provisional energy label is based on the year the home was built and often does not match the actual energy label. From 2023 onward, it is not recommended to use provisional energy labels for decision-making.
+keywords:
+  - Natuur en milieu
+  - Wonen
+  - Energie
+  - Energietransitie
+crs:
+  - "http://www.opengis.net/def/crs/EPSG/0/28992"
+schema:
+  type: Object
+  properties:
+    fid:
+      name: fid
+      type: number
+      role: ID
+    identificatie_bag_vbo:
+      type: string
+    energielabel:
+      type: string
+    definitief:
+      type: string
+    pand_gebouwtype:
+      type: string
+    pand_gebouwsubtype:
+      type: string
+    status:
+      type: string
+    gebruiksdoel:
+      type: string
+    openbare_ruimte:
+      type: string
+    huisnummer:
+      type: number
+    huisletter:
+      type: string
+    toevoeging:
+      type: string
+    postcode:
+      type: string
+    woonplaats:
+      type: string
+    buurtnaam:
+      type: string
+    wijknaam:
+      type: string
+    id_kv:
+      type: number
+queryables:
+  spatial:
+    - geometry
+  temporal:
+  q:
+    - fid
+    - identificatie_bag_vbo
+    - energielabel
+    - definitief
+    - pand_gebouwtype
+    - pand_gebouwsubtype
+    - status
+    - gebruiksdoel
+    - openbare_ruimte
+    - huisnummer
+    - huisletter
+    - toevoeging
+    - postcode
+    - woonplaats
+    - buurtnaam
+    - wijknaam
+    - id_kv
+  other:
