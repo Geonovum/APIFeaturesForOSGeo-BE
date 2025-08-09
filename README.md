@@ -32,3 +32,26 @@ Sortables (Part 8 of OGC API Features)
 Text Search (Part 10)
 
 
+# Usefull
+
+## Get ip
+
+### MacOS
+ipconfig getifaddr en0
+
+### Windows
+Get-NetIPAddress | Where-Object { $_.AddressFamily -eq 'IPv4' -and $_.PrefixOrigin -ne 'WellKnown' } | Select-Object IPAddress
+
+## npm update for all
+
+### MacOS
+npm update for all steps (mac os):
+find . -name package.json -not -path "*/node_modules/*" -execdir npm update \;
+
+### Windows
+cd "C:\path\to\master-directory"
+
+Get-ChildItem -Recurse -Filter package.json -Exclude node_modules | ForEach-Object {
+    Set-Location $_.DirectoryName
+    npm update
+}
