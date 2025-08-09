@@ -1,0 +1,19 @@
+meta {
+  name: LandingPage
+  type: http
+  seq: 2
+}
+
+get {
+  url: https://api.pdok.nl/lv/bgt/ogc/v1
+  body: none
+  auth: inherit
+}
+
+headers {
+  User-Agent: insomnia/9.3.3
+}
+
+settings {
+  encodeUrl: true
+}

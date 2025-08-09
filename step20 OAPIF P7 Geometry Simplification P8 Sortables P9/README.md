@@ -26,5 +26,5 @@ Part 9: Text Search
 ## Testen:
 Run the app
 
-`Example app listening at http://localhost:80`
+`Example app listening at http://localhost:8080/WHY2025/v1`
 

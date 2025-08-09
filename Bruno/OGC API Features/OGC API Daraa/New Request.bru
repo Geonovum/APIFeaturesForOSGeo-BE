@@ -1,0 +1,24 @@
+meta {
+  name: New Request
+  type: http
+  seq: 2
+}
+
+get {
+  url: https://demo.ldproxy.net/daraa/collections/AeronauticCrv/items?f=json&F_CODEee=GB075
+  body: none
+  auth: inherit
+}
+
+params:query {
+  f: json
+  F_CODEee: GB075
+}
+
+headers {
+  User-Agent: insomnia/9.3.2
+}
+
+settings {
+  encodeUrl: true
+}

@@ -11,6 +11,6 @@ run the app
 - items omzetten van WGS84 naar RD-New
 - items bbox met RD-New
 
-`Example app listening at http://localhost:80`
+`Example app listening at http://localhost:8080`
 
 In je browser of via PostMan

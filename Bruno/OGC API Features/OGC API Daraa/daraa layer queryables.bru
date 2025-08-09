@@ -1,0 +1,23 @@
+meta {
+  name: daraa layer queryables
+  type: http
+  seq: 7
+}
+
+get {
+  url: https://demo.ldproxy.net/daraa/collections/AeronauticCrv/queryables?f=json
+  body: none
+  auth: inherit
+}
+
+params:query {
+  f: json
+}
+
+headers {
+  User-Agent: insomnia/9.3.2
+}
+
+settings {
+  encodeUrl: true
+}

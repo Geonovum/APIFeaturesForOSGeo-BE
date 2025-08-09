@@ -45,7 +45,7 @@ router.get('/collections/:collectionId', function (req, res) {
 node index.js
 ```
 
-`Example app listening at http://localhost:80`
+`Example app listening at http://localhost:8080/WHY2025/v1`
 
 In je browser of via PostMan
 

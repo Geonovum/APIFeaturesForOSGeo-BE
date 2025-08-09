@@ -1,0 +1,24 @@
+meta {
+  name: items crs
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{serviceHost}}/collections/{{ _.dataset }}/items?crs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F28992
+  body: none
+  auth: inherit
+}
+
+params:query {
+  crs: http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F28992
+}
+
+headers {
+  User-Agent: insomnia/9.3.2
+  Accept: application/geo+json
+}
+
+settings {
+  encodeUrl: true
+}

@@ -16,7 +16,7 @@ Todo: support for [ETag](https://docs.ogc.org/DRAFTS/20-002.html#optimistic_lock
 ## Testen:
 Run the app
 
-`Example app listening at http://localhost:80`
+`Example app listening at http://localhost:8080/WHY2025/v1`
 
 In je browser of via PostMan
 
