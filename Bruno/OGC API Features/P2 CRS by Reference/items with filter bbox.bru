@@ -5,14 +5,14 @@ meta {
 }
 
 get {
-  url: {{serviceHost}}/collections/{{dataset}}/items?bbox=4.8,52.2,4.81,52.3&f=html
+  url: {{serviceHost}}/collections/{{dataset}}/items?bbox=4.8,52.2,4.81,52.3&f=json
   body: none
   auth: inherit
 }
 
 params:query {
   bbox: 4.8,52.2,4.81,52.3
-  f: html
+  f: json
 }
 
 headers {
