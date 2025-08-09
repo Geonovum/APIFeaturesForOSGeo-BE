@@ -10,19 +10,19 @@ if (__dirname === undefined) console.log("need node 20.16 or higher");
 // Load data (TODO: async)
 try {
   var dataPath = join(
-    process.env.DATA_PATH || join(__dirname, "../data"),
+    process.env.DATA_PATH || join(__dirname, "./data"),
     "datasets"
   );
   readData(dataPath);
 
   var processenPath = join(
-    process.env.DATA_PATH || join(__dirname, "../data"),
+    process.env.DATA_PATH || join(__dirname, "./data"),
     "processes"
   );
   readProcesses(processenPath);
 
   var metadataPath = join(
-    process.env.DATA_PATH || join(__dirname, "../data"),
+    process.env.DATA_PATH || join(__dirname, "./data"),
     "metadata"
   );
   readMetadata(metadataPath);
@@ -38,6 +38,6 @@ app.listen(process.env.PORT, function (error) {
   }
 
   console.log(
-    `OGC API Feature & Processes listening on port ${process.env.PORT}`
+    `OGC API Feature & Processes listening on localhost:${process.env.PORT}/${process.env.ID}/v1`
   );
 });

@@ -20,12 +20,12 @@ export const app = express();
 const __dirname = import.meta.dirname;
 if (__dirname === undefined) console.log("need node 20.16 or higher");
 
-process.env.ID = process.env.ID || "demoservice";
+process.env.ID = process.env.ID || "WHY2025";
 process.env.APIVERSION = process.env.APIVERSION || "1.2.3";
 process.env.PORT = process.env.PORT || 8080;
 process.env.LIMIT = process.env.LIMIT || 10;
 
-const configPath = join(__dirname, "..");
+const configPath = join(__dirname, ".");
 const yamlStr = readFileSync(join(configPath, `local.config.yml`));
 global.config = YAML.parse(yamlStr.toString());
 

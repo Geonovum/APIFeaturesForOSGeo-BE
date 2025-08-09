@@ -1,0 +1,27 @@
+{
+  "id": "echo",
+  "title": "Echo Service",
+  "description": "HTTP Echo Service running in a Docker container. Async only.",
+  "version": "0.0.1",
+  "jobControlOptions": ["async-execute", "dismiss"],
+  "outputTransmission": ["value", "reference"],
+  "inputs": {
+    "uri": {
+      "title": "Uri to echo service",
+      "description": "Uri to echo service.",
+      "schema": {
+        "type": "string"
+      }
+    }
+  },
+  "outputs": {
+    "echo": {
+      "id": "Result",
+      "title": "Echo result",
+      "description": "A string echoing what we send.",
+      "schema": {
+        "type": "string"
+      }
+    }
+  }
+}

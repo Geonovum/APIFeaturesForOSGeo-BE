@@ -1,0 +1,29 @@
+{
+  "id": "countFeatures",
+  "title": "Count features",
+  "description": "Count the total number of features from an API Features endpoint.",
+  "version": "0.0.1",
+  "jobControlOptions": ["sync-execute"],
+  "outputTransmission": ["value", "reference"],
+  "inputs": {
+    "uri": {
+      "title": "Features endpoint",
+      "description": "Uri to dataset.",
+      "schema": {
+        "type": "string",
+        "format": "url"
+      }
+    }
+  },
+  "outputs": {
+    "count": {
+      "id": "Result",
+      "title": "Feature count",
+      "description": "Total number of features provided by OGC API Endpoint.",
+      "schema": {
+        "type": "number",
+        "format": "integer"
+      }
+    }
+  }
+}
