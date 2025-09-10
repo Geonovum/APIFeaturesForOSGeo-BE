@@ -1,8 +1,8 @@
 version = '1.2.3'
 mountPath = "amstelveen"
 
-title = 'WHY2025'
-description = 'Build your own spatial service at WHY2025'
+title = 'OSGeoBE'
+description = 'Build your own spatial service at OSGeoBE'
 
 port = 80
 
